@@ -27,12 +27,12 @@ const PrescriptionTable = ({ setPf, data }) => {
         <tbody id="prescription-data">
           {data.map((data, index) => (
             <tr key={index}>
-              <td>{data.fileName}</td>
-              <td>{data.clinicName}</td>
+              <td>{data.filename}</td>
+              <td>{data.clinic_name}</td>
               <td>{data.description}</td>
               <td>{data.date}</td>
               <td>
-                <a href={data.fileURL} download={true}>
+                <a href={data.file_link} download={true}>
                   <i
                     style={{ cursor: "pointer" }}
                     className="bx bxs-download"

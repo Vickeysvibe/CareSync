@@ -1,10 +1,23 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PrescriptionForm from "./PrescriptionForm.jsx";
 import PrescriptionTable from "./PrescriptionTable.jsx";
+import axios from "axios";
 
 const MainContent = () => {
   const [pf, setPf] = useState(false);
   const [prescriptionList, setPrescriptionList] = useState([]);
+  useEffect(() => {
+    const funck = async () => {
+      const response = await axios.get(
+        "http://192.168.115.249:5000/get_prescriptions/" +
+          localStorage.getItem("UserID")
+      );
+      if (response.data) {
+        setPrescriptionList(response.data);
+      }
+    };
+    funck();
+  });
   console.log(pf);
   return (
     <div className="main-content">
