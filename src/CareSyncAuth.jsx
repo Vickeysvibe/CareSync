@@ -164,13 +164,16 @@ const CareSyncAuth = () => {
   }, []);
 
   const handleFormSubmit = async (e) => {
+    console.log(import.meta.env);
     e.preventDefault();
-
     const apiUrl = isSignUp
-      ? "https://caresync-auth.onrender.com/register"
-      : "https://caresync-auth.onrender.com/login";
+      ? `${import.meta.env.VITE_BACKEND_URL}/register`
+      : `${import.meta.env.VITE_BACKEND_URL}/login`;
 
-    const response = await axios.post(apiUrl, { email, password });
+    const response = await axios.post(apiUrl, {
+      email,
+      password,
+    });
     if (response.data.UserID) {
       if (response.data.user_details) {
         localStorage.setItem("UserID", response.data.UserID);

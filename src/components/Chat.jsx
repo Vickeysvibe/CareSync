@@ -50,7 +50,7 @@ export const Chat = () => {
       setLoading(true);
       console.log(chats);
       const response = await axios.post(
-        "https://caresync-chatassistant-h812.onrender.com/process_context",
+        `${import.meta.env.VITE_BACKEND_URL}/process_context`,
         {
           question: message,
           userId: parseInt(localStorage.getItem("UserID")),

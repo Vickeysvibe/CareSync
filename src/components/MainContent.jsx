@@ -9,7 +9,7 @@ const MainContent = () => {
   useEffect(() => {
     const funck = async () => {
       const response = await axios.get(
-        "http://192.168.115.249:5000/get_prescriptions/" +
+        `${import.meta.env.VITE_BACKEND_URL}/get_prescriptions/` +
           localStorage.getItem("UserID")
       );
       if (response.data) {
@@ -17,7 +17,7 @@ const MainContent = () => {
       }
     };
     funck();
-  });
+  }, []);
   console.log(pf);
   return (
     <div className="main-content">
@@ -41,7 +41,9 @@ const MainContent = () => {
         <div
           id="popup-form"
           className="popup-form"
-          style={pf ? { display: "block" } : { display: "none" }}
+          style={
+            pf ? { display: "block", marginTop: "200px" } : { display: "none" }
+          }
         >
           <PrescriptionForm
             prescriptionList={prescriptionList}

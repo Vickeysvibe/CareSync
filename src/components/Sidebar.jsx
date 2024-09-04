@@ -6,9 +6,6 @@ const Sidebar = () => {
   console.log(pathname);
   return (
     <div className="sidebar">
-      <div className="menu-title">
-        <i className="bx bx-home"></i> Dashboard
-      </div>
       <div
         className="menu-item"
         onClick={() => {
@@ -18,6 +15,22 @@ const Sidebar = () => {
         <button
           style={
             pathname === "/home"
+              ? { backgroundColor: "#29B6F6", color: "white" }
+              : {}
+          }
+        >
+          <i className="bx bx-home"></i> Dashboard
+        </button>
+      </div>
+      <div
+        className="menu-item"
+        onClick={() => {
+          navigate("/home/prescriptions");
+        }}
+      >
+        <button
+          style={
+            pathname.includes("prescriptions")
               ? { backgroundColor: "#29B6F6", color: "white" }
               : {}
           }
@@ -43,11 +56,6 @@ const Sidebar = () => {
         </button>
       </div>
 
-      <div className="menu-item">
-        <button>
-          <i className="bx bx-file"></i> Prescription
-        </button>
-      </div>
       <div
         onClick={() => {
           localStorage.removeItem("UserID");

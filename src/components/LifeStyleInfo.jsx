@@ -43,7 +43,7 @@ const LifestyleInfo = () => {
     };
     console.log(dataToSubmit);
     const response = await axios.post(
-      `${process.env.BACKEND_URL}/lifestyle-information`,
+      `${import.meta.env.VITE_BACKEND_URL}/lifestyle-information`,
       dataToSubmit
     );
     if (response.data.message) {

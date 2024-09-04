@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Chat } from "./components/Chat";
+import Dashboard from "./components/Dashboard";
 
 export const Layout = () => {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ export const Layout = () => {
   useEffect(() => {
     const funct = async () => {
       const response = await axios.get(
-        "http://192.168.115.249:5000/user-details-status/" +
+        `${import.meta.env.VITE_BACKEND_URL}/user-details-status/` +
           localStorage.getItem("UserID")
       );
       if (!response.data.UserDetails) {
@@ -28,8 +29,9 @@ export const Layout = () => {
       <Sidebar />
       <div className="main-content">
         <Routes>
-          <Route path="/" element={<MainContent />} />
+          <Route path="/" element={<Dashboard />} />
           <Route path="chat" element={<Chat />} />
+          <Route path="prescriptions" element={<MainContent />} />
         </Routes>
       </div>
     </div>

@@ -50,7 +50,7 @@ const UserDetails = () => {
     console.log(dataToSubmit);
 
     const response = await axios.post(
-      `${process.env.BACKEND_URL}/user-profile`,
+      `${import.meta.env.VITE_BACKEND_URL}/user-profile`,
       dataToSubmit
     );
     if (response.data.message) {

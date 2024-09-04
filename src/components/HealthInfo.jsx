@@ -32,7 +32,7 @@ const HealthInfo = () => {
     console.log(dataToSubmit);
 
     const response = await axios.post(
-      `${process.env.BACKEND_URL}/health-information`,
+      `${import.meta.env.VITE_BACKEND_URL}/health-information`,
       dataToSubmit
     );
     if (response.data.message) {
@@ -58,7 +58,7 @@ const HealthInfo = () => {
           <label htmlFor="medicalHistory">Medical History:</label>
           <textarea
             id="medicalHistory"
-            name="medicalHistory"
+            name="medical_history"
             placeholder="Do you have any existing medical conditions or past surgeries?"
             rows="5"
             value={formData.medical_history}
@@ -69,7 +69,7 @@ const HealthInfo = () => {
           <label htmlFor="currentMedications">Current Medications:</label>
           <textarea
             id="currentMedications"
-            name="currentMedications"
+            name="current_medications"
             placeholder="Are you currently taking any medications?"
             rows="5"
             value={formData.current_medications}
@@ -91,7 +91,7 @@ const HealthInfo = () => {
           <label htmlFor="familyMedicalHistory">Family Medical History:</label>
           <textarea
             id="familyMedicalHistory"
-            name="familyMedicalHistory"
+            name="family_medical_history"
             placeholder="Does your family have a history of any medical conditions?"
             rows="5"
             value={formData.family_medical_history}

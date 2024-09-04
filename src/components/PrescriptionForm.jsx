@@ -1,27 +1,51 @@
+import axios from "axios";
 import { useState } from "react";
 
-// eslint-disable-next-line react/prop-types
 const PrescriptionForm = ({ setPf, prescriptionList, setPrescriptionList }) => {
   const [data, setData] = useState({
-    fileName: "",
-    fileURL: "",
-    clinicName: "",
+    user_id: localStorage.getItem("UserID"),
+    clinic_name: "",
     description: "",
+    date: undefined,
+    file: undefined,
   });
-  console.log(data);
-  const handleSubmit = (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const date = new Date().toISOString().slice(0, 10);
-    const data1 = { ...data, date: date };
-    setPrescriptionList([...prescriptionList, data1]);
-    setData({
-      fileName: "",
-      fileURL: "",
-      clinicName: "",
-      description: "",
-    });
-    setPf(false);
+
+    // Create a FormData object to handle the file upload
+    const formData = new FormData();
+    formData.append("user_id", parseInt(localStorage.getItem("UserID")));
+    formData.append("clinic_name", data.clinic_name);
+    formData.append("description", data.description);
+    formData.append("date", new Date().toISOString().slice(0, 10));
+    formData.append("file", data.file);
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/upload_prescription`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data", // Important for file uploads
+          },
+        }
+      );
+
+      // Reset the form data after submission
+      setData({
+        user_id: parseInt(localStorage.getItem("UserID")),
+        clinic_name: "",
+        description: "",
+        date: new Date().toISOString().slice(0, 10),
+        file: undefined,
+      });
+      setPf(false);
+    } catch (error) {
+      console.error("Error uploading prescription:", error);
+    }
   };
+
   return (
     <form id="prescription-form" onSubmit={handleSubmit}>
       <div className="file-upload-container">
@@ -30,16 +54,10 @@ const PrescriptionForm = ({ setPf, prescriptionList, setPrescriptionList }) => {
           <input
             type="file"
             id="file-upload"
-            name="file-upload"
+            name="file"
             className="file-upload"
             onChange={(e) => {
-              const selectedFile = e.target.files[0];
-              const fileUrl = URL.createObjectURL(selectedFile);
-              setData({
-                ...data,
-                fileName: selectedFile.name,
-                fileURL: fileUrl,
-              });
+              setData({ ...data, file: e.target.files[0] });
               console.log(data);
             }}
             required
@@ -50,9 +68,12 @@ const PrescriptionForm = ({ setPf, prescriptionList, setPrescriptionList }) => {
       <input
         type="text"
         id="clinic-name"
-        value={data.clinicName}
+        value={data.clinic_name}
         name="clinic-name"
-        onChange={(e) => setData({ ...data, clinicName: e.target.value })}
+        onChange={(e) => {
+          console.log(data);
+          setData({ ...data, clinic_name: e.target.value });
+        }}
         placeholder="Your clinic name here"
         required
       />
