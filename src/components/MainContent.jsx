@@ -17,7 +17,7 @@ const MainContent = () => {
       }
     };
     funck();
-  }, []);
+  }, [pf]);
   console.log(pf);
   return (
     <div className="main-content">

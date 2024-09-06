@@ -71,11 +71,12 @@ const UserDetails = () => {
         <div className="circle">3</div>
       </div>
       <h2>Profile setup</h2>
-      <form id="profile-form">
+      <form onSubmit={handleSubmit} id="profile-form">
         <div className="form-row">
           <div className="form-group">
             <label>Your Full Name:</label>
             <input
+              required
               type="text"
               name="full_name"
               value={formData.full_name}
@@ -85,6 +86,7 @@ const UserDetails = () => {
           <div className="form-group">
             <label>Date of Birth (DOB):</label>
             <input
+              required
               type="date"
               name="dob"
               value={formData.dob}
@@ -94,6 +96,7 @@ const UserDetails = () => {
           <div className="form-group">
             <label>Age:</label>
             <input
+              required
               type="number"
               name="age"
               value={formData.age}
@@ -105,6 +108,7 @@ const UserDetails = () => {
           <div className="form-group">
             <label>Gender:</label>
             <select
+              required
               name="gender"
               value={formData.gender}
               onChange={handleChange}
@@ -120,8 +124,9 @@ const UserDetails = () => {
           <div className="form-group">
             <label>Phone Number:</label>
             <div className="phone-input">
-              <input type="text" value="+91" disabled />
+              <input required type="text" value="+91" disabled />
               <input
+                required
                 type="tel"
                 name="phone_number"
                 value={formData.phone_number}
@@ -132,6 +137,7 @@ const UserDetails = () => {
           <div className="form-group">
             <label>District:</label>
             <input
+              required
               type="text"
               name="district"
               value={formData.district}
@@ -143,6 +149,7 @@ const UserDetails = () => {
           <div className="form-group">
             <label>State:</label>
             <input
+              required
               type="text"
               name="state"
               value={formData.state}
@@ -152,6 +159,7 @@ const UserDetails = () => {
           <div className="form-group">
             <label>Height (in cm):</label>
             <input
+              required
               type="text"
               name="height"
               value={formData.height}
@@ -161,6 +169,7 @@ const UserDetails = () => {
           <div className="form-group">
             <label>Weight (in kg):</label>
             <input
+              required
               type="text"
               name="weight"
               value={formData.weight}
@@ -172,6 +181,7 @@ const UserDetails = () => {
           <div className="form-group">
             <label>Occupation:</label>
             <input
+              required
               type="text"
               name="occupation"
               value={formData.occupation}
@@ -181,6 +191,7 @@ const UserDetails = () => {
           <div className="form-group">
             <label>Annual Income:</label>
             <input
+              required
               type="text"
               name="annual_income"
               value={formData.annual_income}
@@ -189,7 +200,7 @@ const UserDetails = () => {
           </div>
         </div>
         <div className="form-row next-button-row">
-          <button onClick={handleSubmit} type="button" id="next-button">
+          <button type="submit" id="next-button">
             Next
           </button>
         </div>

@@ -32,7 +32,8 @@ const LifestyleInfo = () => {
     console.log(formData);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const dataToSubmit = {
       ...formData,
       user_id: parseInt(formData.user_id),
@@ -65,153 +66,166 @@ const LifestyleInfo = () => {
           <div className="circle active">3</div>
         </div>
         <h2>Lifestyle Information</h2>
-        <div className="form-grid">
-          <div className="form-row">
+        <form onSubmit={handleSubmit}>
+          <div className="form-grid">
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="physical_activity">Physical activity:</label>
+                <select
+                  required
+                  id="physical_activity"
+                  name="physical_activity"
+                  value={formData.physical_activity}
+                  onChange={handleInputChange}
+                >
+                  <option value="">Select...</option>
+                  <option value="None">None</option>
+                  <option value="Light">Light</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="High">High</option>
+                </select>
+              </div>
+            </div>
             <div className="form-group">
-              <label htmlFor="physical_activity">Physical activity:</label>
+              <label htmlFor="smoking_status">Smoking status:</label>
               <select
-                id="physical_activity"
-                name="physical_activity"
-                value={formData.physical_activity}
+                required
+                id="smoking_status"
+                name="smoking_status"
+                value={formData.smoking_status}
+                onChange={handleInputChange}
+              >
+                <option value="">Select...</option>
+                <option value="Never">Never</option>
+                <option value="Former">Former</option>
+                <option value="Current">Current</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="sleep_hours">Sleep hours:</label>
+              <input
+                required
+                id="sleep_hours"
+                name="sleep_hours"
+                value={formData.sleep_hours}
+                onChange={handleInputChange}
+                type="number"
+                placeholder="Sleep hours"
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="stress_level">Stress level:</label>
+              <select
+                required
+                id="stress_level"
+                name="stress_level"
+                value={formData.stress_level}
+                onChange={handleInputChange}
+              >
+                <option value="">Select...</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </select>
+            </div>
+            <div className="form-group">
+              <label htmlFor="alcohol_consumption">Alcohol consumption:</label>
+              <select
+                required
+                id="alcohol_consumption"
+                name="alcohol_consumption"
+                value={formData.alcohol_consumption}
                 onChange={handleInputChange}
               >
                 <option value="">Select...</option>
                 <option value="None">None</option>
                 <option value="Light">Light</option>
                 <option value="Moderate">Moderate</option>
-                <option value="High">High</option>
+                <option value="Heavy">Heavy</option>
               </select>
             </div>
-          </div>
-          <div className="form-group">
-            <label htmlFor="smoking_status">Smoking status:</label>
-            <select
-              id="smoking_status"
-              name="smoking_status"
-              value={formData.smoking_status}
-              onChange={handleInputChange}
-            >
-              <option value="">Select...</option>
-              <option value="Never">Never</option>
-              <option value="Former">Former</option>
-              <option value="Current">Current</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="sleep_hours">Sleep hours:</label>
-            <input
-              id="sleep_hours"
-              name="sleep_hours"
-              value={formData.sleep_hours}
-              onChange={handleInputChange}
-              type="number"
-              placeholder="Sleep hours"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="stress_level">Stress level:</label>
-            <select
-              id="stress_level"
-              name="stress_level"
-              value={formData.stress_level}
-              onChange={handleInputChange}
-            >
-              <option value="">Select...</option>
-              <option value="Low">Low</option>
-              <option value="Medium">Medium</option>
-              <option value="High">High</option>
-            </select>
-          </div>
-          <div className="form-group">
-            <label htmlFor="alcohol_consumption">Alcohol consumption:</label>
-            <select
-              id="alcohol_consumption"
-              name="alcohol_consumption"
-              value={formData.alcohol_consumption}
-              onChange={handleInputChange}
-            >
-              <option value="">Select...</option>
-              <option value="None">None</option>
-              <option value="Light">Light</option>
-              <option value="Moderate">Moderate</option>
-              <option value="Heavy">Heavy</option>
-            </select>
-          </div>
-          <div className="form-group radio-group">
-            <label>Family history CVD:</label>
-            <div className="radio-options">
-              <input
-                type="radio"
-                id="cvdYes"
-                name="family_history_CVD"
-                value="yes"
-                checked={formData.family_history_CVD === "yes"}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="cvdYes">Yes</label>
-              <input
-                type="radio"
-                id="cvdNo"
-                name="family_history_CVD"
-                value="no"
-                checked={formData.family_history_CVD === "no"}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="cvdNo">No</label>
+            <div className="form-group radio-group">
+              <label>Family history CVD:</label>
+              <div className="radio-options">
+                <input
+                  required
+                  type="radio"
+                  id="cvdYes"
+                  name="family_history_CVD"
+                  value="yes"
+                  checked={formData.family_history_CVD === "yes"}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="cvdYes">Yes</label>
+                <input
+                  required
+                  type="radio"
+                  id="cvdNo"
+                  name="family_history_CVD"
+                  value="no"
+                  checked={formData.family_history_CVD === "no"}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="cvdNo">No</label>
+              </div>
+            </div>
+            <div className="form-group radio-group">
+              <label>Family history diabetes:</label>
+              <div>
+                <input
+                  required
+                  type="radio"
+                  id="diabetesYes"
+                  name="family_history_diabetes"
+                  value="yes"
+                  checked={formData.family_history_diabetes === "yes"}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="diabetesYes">Yes</label>
+                <input
+                  required
+                  type="radio"
+                  id="diabetesNo"
+                  name="family_history_diabetes"
+                  value="no"
+                  checked={formData.family_history_diabetes === "no"}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="diabetesNo">No</label>
+              </div>
+            </div>
+            <div className="form-group radio-group">
+              <label>Family history cancer:</label>
+              <div>
+                <input
+                  required
+                  type="radio"
+                  id="cancerYes"
+                  name="family_history_cancer"
+                  value="yes"
+                  checked={formData.family_history_cancer === "yes"}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="cancerYes">Yes</label>
+                <input
+                  required
+                  type="radio"
+                  id="cancerNo"
+                  name="family_history_cancer"
+                  value="no"
+                  checked={formData.family_history_cancer === "no"}
+                  onChange={handleInputChange}
+                />
+                <label htmlFor="cancerNo">No</label>
+              </div>
             </div>
           </div>
-          <div className="form-group radio-group">
-            <label>Family history diabetes:</label>
-            <div>
-              <input
-                type="radio"
-                id="diabetesYes"
-                name="family_history_diabetes"
-                value="yes"
-                checked={formData.family_history_diabetes === "yes"}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="diabetesYes">Yes</label>
-              <input
-                type="radio"
-                id="diabetesNo"
-                name="family_history_diabetes"
-                value="no"
-                checked={formData.family_history_diabetes === "no"}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="diabetesNo">No</label>
-            </div>
+          <div className="next-button-wrapper">
+            <button className="next-button" type="submit">
+              Submit
+            </button>
           </div>
-          <div className="form-group radio-group">
-            <label>Family history cancer:</label>
-            <div>
-              <input
-                type="radio"
-                id="cancerYes"
-                name="family_history_cancer"
-                value="yes"
-                checked={formData.family_history_cancer === "yes"}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="cancerYes">Yes</label>
-              <input
-                type="radio"
-                id="cancerNo"
-                name="family_history_cancer"
-                value="no"
-                checked={formData.family_history_cancer === "no"}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="cancerNo">No</label>
-            </div>
-          </div>
-        </div>
-        <div className="next-button-wrapper">
-          <button className="next-button" onClick={handleSubmit}>
-            Submit
-          </button>
-        </div>
+        </form>
       </div>
     );
   } else {
