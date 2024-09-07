@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const enhancedCSS = `@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
@@ -153,6 +154,7 @@ const CareSyncAuth = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const toggleAuthMode = () => setIsSignUp(!isSignUp);
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
@@ -164,17 +166,18 @@ const CareSyncAuth = () => {
   }, []);
 
   const handleFormSubmit = async (e) => {
+    setIsLoading(true);
     console.log(import.meta.env);
     e.preventDefault();
     const apiUrl = isSignUp
       ? `${import.meta.env.VITE_BACKEND_URL}/register`
       : `${import.meta.env.VITE_BACKEND_URL}/login`;
 
-    const response = await axios.post(apiUrl, {
-      email,
-      password,
-    });
-    if (response.data.UserID) {
+    try {
+      const response = await axios.post(apiUrl, {
+        email,
+        password,
+      });
       if (response.data.user_details) {
         localStorage.setItem("UserID", response.data.UserID);
         navigate("/home");
@@ -182,16 +185,18 @@ const CareSyncAuth = () => {
         localStorage.setItem("UserID", response.data.UserID);
         navigate("/details/user-info");
       }
-    } else {
-      // Handle error response
-      console.error("Error:", response);
-      alert("email or password error");
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response.data.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <>
       <style>{enhancedCSS}</style>
+      <Toaster />
       <div className="auth-container">
         <div className="auth-form">
           <h2 className="auth-title">
@@ -248,8 +253,22 @@ const CareSyncAuth = () => {
               />
               <label htmlFor="rememberMe">Remember me</label>
             </div>
-            <button type="submit" className="submit-button">
-              {isSignUp ? "Sign Up" : "Sign In"}
+            <button
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              type="submit"
+              className="submit-button"
+            >
+              {isLoading ? (
+                <div className="loader" />
+              ) : isSignUp ? (
+                "Sign In"
+              ) : (
+                "Sign Up"
+              )}
             </button>
           </form>
           <div className="toggle-auth">

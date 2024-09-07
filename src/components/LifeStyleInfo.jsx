@@ -4,8 +4,10 @@ import "../styles/lifestyle.css";
 import LoadingPage from "./LoadingPage";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const LifestyleInfo = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("UserID")) {
@@ -33,6 +35,7 @@ const LifestyleInfo = () => {
   };
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     const dataToSubmit = {
       ...formData,
@@ -43,21 +46,24 @@ const LifestyleInfo = () => {
       family_history_cancer: formData.family_history_cancer === "yes",
     };
     console.log(dataToSubmit);
-    const response = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/lifestyle-information`,
-      dataToSubmit
-    );
-    if (response.data.message) {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/lifestyle-information`,
+        dataToSubmit
+      );
       console.log("Form Data Submitted:", dataToSubmit);
       setLoading(true);
-    } else {
-      alert("issue");
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   if (!loading) {
     return (
       <div className="container1">
+        <Toaster />
         <div className="progress-container">
           <div className="circle active">1</div>
           <div className="line active"></div>
@@ -222,7 +228,7 @@ const LifestyleInfo = () => {
           </div>
           <div className="next-button-wrapper">
             <button className="next-button" type="submit">
-              Submit
+              {isLoading ? <div className="loader" /> : "Submit"}
             </button>
           </div>
         </form>

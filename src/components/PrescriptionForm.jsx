@@ -1,7 +1,9 @@
 import axios from "axios";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 
 const PrescriptionForm = ({ setPf, prescriptionList, setPrescriptionList }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState({
     user_id: localStorage.getItem("UserID"),
     clinic_name: "",
@@ -11,6 +13,7 @@ const PrescriptionForm = ({ setPf, prescriptionList, setPrescriptionList }) => {
   });
 
   const handleSubmit = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
 
     // Create a FormData object to handle the file upload
@@ -21,33 +24,43 @@ const PrescriptionForm = ({ setPf, prescriptionList, setPrescriptionList }) => {
     formData.append("date", new Date().toISOString().slice(0, 10));
     formData.append("file", data.file);
 
-    try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_URL}/upload_prescription`,
-        formData,
+    toast
+      .promise(
+        axios.post(
+          `${import.meta.env.VITE_BACKEND_URL}/upload_prescription`,
+          formData,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data", // Important for file uploads
+            },
+          }
+        ),
         {
-          headers: {
-            "Content-Type": "multipart/form-data", // Important for file uploads
-          },
+          loading: "Uploading prescription...",
+          success: "Prescription uploaded successfully!",
+          error: "Error uploading prescription. Please try again.",
         }
-      );
-
-      // Reset the form data after submission
-      setData({
-        user_id: parseInt(localStorage.getItem("UserID")),
-        clinic_name: "",
-        description: "",
-        date: new Date().toISOString().slice(0, 10),
-        file: undefined,
+      )
+      .then((response) => {
+        // Reset the form data after successful submission
+        setData({
+          user_id: parseInt(localStorage.getItem("UserID")),
+          clinic_name: "",
+          description: "",
+          date: new Date().toISOString().slice(0, 10),
+          file: undefined,
+        });
+        setIsLoading(false);
+        setPf(false); // Close the form
+      })
+      .catch((error) => {
+        console.error("Error uploading prescription:", error);
       });
-      setPf(false);
-    } catch (error) {
-      console.error("Error uploading prescription:", error);
-    }
   };
 
   return (
     <form id="prescription-form" onSubmit={handleSubmit}>
+      <Toaster />
       <div className="file-upload-container">
         <label className="file-upload-label">
           <i className="bx bx-upload"></i> Drag and drop or upload files
@@ -88,7 +101,7 @@ const PrescriptionForm = ({ setPf, prescriptionList, setPrescriptionList }) => {
         required
       ></textarea>
       <button type="submit" className="upload-btn">
-        Upload
+        {isLoading ? <div className="loader" /> : "Upload"}
       </button>
     </form>
   );

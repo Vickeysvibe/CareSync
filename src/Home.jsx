@@ -2,8 +2,14 @@ import watch from "./assets/watch.png";
 import group from "./assets/Group.png";
 import "./App.css";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    if (localStorage.getItem("UserID")) {
+      navigate("/home");
+    }
+  });
   const navigate = useNavigate();
 
   const handleLoginClick = () => {

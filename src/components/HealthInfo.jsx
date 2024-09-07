@@ -6,6 +6,7 @@ import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
 
 const HealthInfo = () => {
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("UserID")) {
@@ -26,6 +27,7 @@ const HealthInfo = () => {
   };
 
   const handleNext = async (e) => {
+    setIsLoading(true);
     e.preventDefault();
     const dataToSubmit = {
       ...formData,
@@ -40,10 +42,12 @@ const HealthInfo = () => {
       );
       if (response.data) {
         toast.success("Health Information Submitted");
-        navigate("/life-info");
+        navigate("/details/life-info");
       }
     } catch (error) {
       toast.error("Error in submitting health information");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -116,7 +120,7 @@ const HealthInfo = () => {
           <input type="file" id="checkupReport" accept=".jpg,.pdf" />
           <button
             className="upload-button"
-            onclick="document.getElementById('checkupReport').click()"
+            onClick="document.getElementById('checkupReport').click()"
           >
             Upload
           </button>

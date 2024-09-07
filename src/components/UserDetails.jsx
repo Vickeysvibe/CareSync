@@ -2,9 +2,11 @@ import { useEffect, useState } from "react";
 import "../styles/useDetails.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast, { Toaster } from "react-hot-toast";
 
 const UserDetails = () => {
   const navigate = useNavigate();
+  const [isloading, setisloading] = useState(true);
 
   useEffect(() => {
     if (!localStorage.getItem("UserID")) {
@@ -38,7 +40,9 @@ const UserDetails = () => {
     console.log(formData);
   };
 
-  const handleSubmit = async () => {
+  const handleSubmit = async (e) => {
+    setisloading(true);
+    e.preventDefault();
     const dataToSubmit = {
       ...formData,
       age: parseInt(formData.age), // Converting age to an integer
@@ -49,20 +53,23 @@ const UserDetails = () => {
     };
     console.log(dataToSubmit);
 
-    const response = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/user-profile`,
-      dataToSubmit
-    );
-    if (response.data.message) {
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/user-profile`,
+        dataToSubmit
+      );
       console.log("Form Data Submitted:", dataToSubmit);
       navigate("/details/health-info");
-    } else {
-      alert("Issue submitting form data");
+    } catch (error) {
+      toast.error("Issue submitting form data");
+    } finally {
+      setisloading(false);
     }
   };
 
   return (
     <div className="container1">
+      <Toaster />
       <div className="progress-container">
         <div className="circle active">1</div>
         <div className="line"></div>
@@ -201,7 +208,7 @@ const UserDetails = () => {
         </div>
         <div className="form-row next-button-row">
           <button type="submit" id="next-button">
-            Next
+            {isLoading ? <div className="loader" /> : "Next"}
           </button>
         </div>
       </form>

@@ -19,7 +19,7 @@ export const Chat = () => {
   const [chats, setChats] = useState([
     {
       message:
-        "Hey there !, Ask me anything... Literally anything and if it is within my DB, Its yours",
+        "Hey there !, Let me help you with your queries. What can I do for you?",
       type: "botChat",
     },
   ]);
@@ -48,6 +48,7 @@ export const Chat = () => {
 
     try {
       setLoading(true);
+      setMessage(""); // Clear the input field after sending
       console.log(chats);
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/process_context`,
@@ -64,7 +65,6 @@ export const Chat = () => {
 
       // Add the bot response to the chat state
       setChats((prevChats) => [...prevChats, newChat2]);
-      setMessage(""); // Clear the input field after sending
       setLoading(false);
     } catch (error) {
       console.log(chats);
@@ -97,8 +97,13 @@ export const Chat = () => {
             placeholder="Ask me anything !!"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            disabled={loading}
           />
-          <img onClick={handleSend} src={send} alt="send" />
+          {loading ? (
+            <div className="loader" />
+          ) : (
+            <img onClick={handleSend} src={send} alt="send" />
+          )}
         </form>
       </div>
     </div>

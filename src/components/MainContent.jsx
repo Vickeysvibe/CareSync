@@ -20,7 +20,7 @@ const MainContent = () => {
   }, [pf]);
   console.log(pf);
   return (
-    <div className="main-content">
+    <div className="main-content" style={{ width: "95%" }}>
       <div className="header">
         <h1>PRESCRIPTION</h1>
       </div>
