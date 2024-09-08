@@ -15,7 +15,7 @@ body {
 }
 
 .sidebar {
-  width: 23%;
+  min-width: 23%;
   background-color: #ffffff;
   background-position: bottom;
   background-size: 100%;
@@ -125,7 +125,7 @@ body {
 }
 
 .logout-item button:hover {
-  background-color: #29b6f6;
+  background-color: #f62929;
   color: white;
 }
 

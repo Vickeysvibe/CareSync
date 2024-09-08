@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { Chat } from "./components/Chat";
 import Dashboard from "./components/Dashboard";
+import ClaimPage from "./components/ClaimsPage";
 
 export const Layout = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ export const Layout = () => {
           <Route path="/" element={<Dashboard />} />
           <Route path="chat" element={<Chat />} />
           <Route path="prescriptions" element={<MainContent />} />
+          <Route path="claims" element={<ClaimPage />} />
         </Routes>
       </div>
     </div>
