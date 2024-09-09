@@ -8,12 +8,11 @@ const enhancedCSS = `@import url('https://fonts.googleapis.com/css2?family=Inter
 
 :root {
   --primary-color: #4287f5;
-  --background-color: #87b7ff;
+  --background-color: #f7f9fc;
   --text-color: #333;
   --border-color: #e0e0e0;
-  --google-red: #DB4437;
 }
-  
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -37,23 +36,23 @@ body {
 
 .auth-form {
   background-color: white;
-  padding: 2rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  max-width: 400px;
+  padding: 2.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  max-width: 380px;
   width: 100%;
 }
 
 .auth-title {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
   margin-bottom: 1.5rem;
-  color: var(--primary-color);
+  color: var(--text-color);
 }
 
 .input-group {
-  margin-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
 }
 
 .input-label {
@@ -66,13 +65,11 @@ body {
 
 .input-wrapper {
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
 .input-field {
   width: 100%;
-  padding: 0.75rem 0.75rem 0.75rem 2.5rem;
+  padding: 0.8rem 1rem;
   border: 1px solid var(--border-color);
   border-radius: 0.5rem;
   font-size: 1rem;
@@ -87,33 +84,22 @@ body {
 
 .input-icon {
   position: absolute;
-  left: 0.75rem;
+  left: 0.8rem;
   color: #888;
 }
 
 .password-toggle {
   position: absolute;
-  right: 0.75rem;
+  right: 0.8rem;
   background: none;
   border: none;
   cursor: pointer;
   color: #888;
 }
 
-.remember-me {
-  display: flex;
-  align-items: center;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-.remember-me input {
-  margin-right: 0.5rem;
-}
-
 .submit-button {
   width: 100%;
-  padding: 0.75rem;
+  padding: 0.9rem;
   background-color: var(--primary-color);
   color: white;
   border: none;
@@ -125,7 +111,7 @@ body {
 }
 
 .submit-button:hover {
-  background-color: #3272d9;
+  background-color: #2272d9;
 }
 
 .toggle-auth {
@@ -144,6 +130,31 @@ body {
 
 .toggle-auth-button:hover {
   text-decoration: underline;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  margin: 1rem 0 1.5rem;
+}
+
+.remember-me input {
+  margin-right: 0.5rem;
+}
+
+.auth-form .input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-form .input-icon {
+  position: absolute;
+  left: 0.75rem;
+}
+
+.auth-form .input-field {
+  padding-left: 2.5rem;
 }
 `;
 
@@ -214,7 +225,7 @@ const CareSyncAuth = () => {
                   name="email"
                   type="email"
                   className="input-field"
-                  placeholder="you@example.com"
+                  placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
@@ -231,7 +242,7 @@ const CareSyncAuth = () => {
                   name="password"
                   type={showPassword ? "text" : "password"}
                   className="input-field"
-                  placeholder="••••••••"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />

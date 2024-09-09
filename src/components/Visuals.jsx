@@ -35,22 +35,8 @@ function Visuals() {
   const [activeTab, setActiveTab] = useState("overview");
 
   useEffect(() => {
-    fetchUserIds();
+    fetchUserData(localStorage.getItem("UserID"));
   }, []);
-
-  const fetchUserIds = async () => {
-    try {
-      const response = await axios.get("http://localhost:5001/api/users");
-      if (response.data.status === "success") {
-        setUserIds(response.data.user_ids);
-      } else {
-        throw new Error(response.data.message || "Failed to fetch user IDs");
-      }
-    } catch (error) {
-      console.error("Error fetching user IDs:", error);
-      setError("Failed to fetch user IDs. Please try again later.");
-    }
-  };
 
   const fetchUserData = async (userId) => {
     setLoading(true);
@@ -82,16 +68,6 @@ function Visuals() {
       setError("Failed to fetch some user data. Please try again later.");
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleUserChange = (event) => {
-    const userId = event.target.value;
-    setSelectedUserId(userId);
-    if (userId) {
-      fetchUserData(userId);
-    } else {
-      setUserData({});
     }
   };
 
@@ -424,7 +400,7 @@ function Visuals() {
                 </button>
               </div>
             </div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <select
                 value={selectedUserId}
                 onChange={handleUserChange}
@@ -437,7 +413,7 @@ function Visuals() {
                   </option>
                 ))}
               </select>
-            </div>
+            </div> */}
           </div>
         </div>
       </nav>

@@ -14,6 +14,7 @@ const InsurancePlanDisplay = () => {
   useEffect(() => {
     const func = async () => {
       try {
+        setLoading(true);
         const response = await axios.get(
           `http://localhost:8000/api/insurance-plan/${localStorage.getItem(
             "UserID"
@@ -29,13 +30,10 @@ const InsurancePlanDisplay = () => {
     };
     func();
   }, []);
-  const fetchPlan = async () => {
-    setLoading(true);
-    setError(null);
-  };
 
   return (
     <div>
+      {loading && <p>Loading...</p>}
       {/* <Form className="mb-3">
         <Form.Group as={Row} className="mb-3">
           <Form.Label column sm="2">
