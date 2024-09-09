@@ -8,6 +8,8 @@ import { useEffect } from "react";
 import { Chat } from "./components/Chat";
 import Dashboard from "./components/Dashboard";
 import ClaimPage from "./components/ClaimsPage";
+import Visuals from "./components/Visuals";
+import Insurance from "./components/Insurance";
 
 export const Layout = () => {
   const navigate = useNavigate();
@@ -34,6 +36,8 @@ export const Layout = () => {
           <Route path="chat" element={<Chat />} />
           <Route path="prescriptions" element={<MainContent />} />
           <Route path="claims" element={<ClaimPage />} />
+          <Route path="plan" element={<Insurance />} />
+          <Route path="plan/visuals" element={<Visuals />} />
         </Routes>
       </div>
     </div>

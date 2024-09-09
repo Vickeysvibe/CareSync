@@ -73,6 +73,22 @@ const Sidebar = () => {
         </button>
       </div>
       <div
+        className="menu-item"
+        onClick={() => {
+          navigate("/home/plan");
+        }}
+      >
+        <button
+          style={
+            pathname.includes("plan")
+              ? { backgroundColor: "#29B6F6", color: "white" }
+              : {}
+          }
+        >
+          <i className="bx bx-file"></i> Plan
+        </button>
+      </div>
+      <div
         onClick={() => {
           localStorage.removeItem("UserID");
           navigate("/");

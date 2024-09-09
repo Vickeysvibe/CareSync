@@ -163,11 +163,11 @@ const ClaimForm = ({ setPf, claimList, setClaimList }) => {
 /* eslint-disable react/prop-types */
 const ClaimTable = ({ setPf, data }) => {
   const [searchTerm, setSearchTerm] = useState("");
-
+  console.log(data);
   // Filter the data based on the search term
   const filteredData = data.filter(
     (item) =>
-      item.bill.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.bill_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.reason.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.date.includes(searchTerm)
   );
@@ -205,7 +205,7 @@ const ClaimTable = ({ setPf, data }) => {
         <tbody id="prescription-data">
           {filteredData.map((item, index) => (
             <tr key={index}>
-              <td>{item.bill}</td>
+              <td>{item.bill_name}</td>
               <td>{item.status}</td>
               <td>{item.reason}</td>
               <td>{item.date}</td>

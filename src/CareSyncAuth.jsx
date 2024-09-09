@@ -265,9 +265,9 @@ const CareSyncAuth = () => {
               {isLoading ? (
                 <div className="loader" />
               ) : isSignUp ? (
-                "Sign In"
+                "Register"
               ) : (
-                "Sign Up"
+                "Login"
               )}
             </button>
           </form>
@@ -275,7 +275,7 @@ const CareSyncAuth = () => {
             <p>
               {isSignUp ? "Already have an account?" : "Don't have an account?"}{" "}
               <button onClick={toggleAuthMode} className="toggle-auth-button">
-                {isSignUp ? "Sign In" : "Sign Up"}
+                {isSignUp ? "Login" : "Register"}
               </button>
             </p>
           </div>
