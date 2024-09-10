@@ -7,6 +7,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 const HealthInfo = () => {
   const [isLoading, setIsLoading] = useState(true);
+  const [file, setFile] = useState();
   const navigate = useNavigate();
   useEffect(() => {
     if (!localStorage.getItem("UserID")) {
@@ -40,7 +41,14 @@ const HealthInfo = () => {
         `${import.meta.env.VITE_BACKEND_URL}/health-information`,
         dataToSubmit
       );
-      if (response.data) {
+      const response1 = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/process_report`,
+        {
+          user_id: localStorage.getItem("UserID"),
+          file: file,
+        }
+      );
+      if (response.data && response1.data) {
         toast.success("Health Information Submitted");
         navigate("/details/life-info");
       }
@@ -117,7 +125,14 @@ const HealthInfo = () => {
         </div>
         <div className="upload-button-wrapper">
           <label className="upload-label">Full body checkup report:</label>
-          <input type="file" id="checkupReport" accept=".jpg,.pdf" />
+          <input
+            type="file"
+            id="checkupReport"
+            accept=".jpg,.pdf"
+            onClick={(e) => {
+              setFile(e.target.files[0]);
+            }}
+          />
           <button
             className="upload-button"
             onClick="document.getElementById('checkupReport').click()"

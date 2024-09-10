@@ -208,7 +208,7 @@ const UserDetails = () => {
         </div>
         <div className="form-row next-button-row">
           <button type="submit" id="next-button">
-            {isLoading ? <div className="loader" /> : "Next"}
+            {!isloading ? <div className="loader" /> : "Next"}
           </button>
         </div>
       </form>
