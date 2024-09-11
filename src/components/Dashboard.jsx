@@ -87,7 +87,7 @@ const Dashboard = () => {
               <p>No claim data available.</p>
             )}
           </div>
-          <div className="view-link2" onClick={() => navigate("/claims")}>
+          <div className="view-link2" onClick={() => navigate("/home/claims")}>
             View Details <i className="arrow-right"></i>
           </div>
         </div>
@@ -109,6 +109,11 @@ const Dashboard = () => {
                 </span>
               )}
             </div>
+            <div className="profile-percentage">
+              Health Score:{" "}
+              <span id="health-percentage">{/* Dynamic Percentage */} 75%</span>
+            </div>
+
             <p className="risk-contributors">
               Risk Contributors:
               <ul>
@@ -127,6 +132,7 @@ const Dashboard = () => {
             </p>
           </div>
         </div>
+
         <div className="right-bottom">
           <div className="box tip">
             <div className="header">

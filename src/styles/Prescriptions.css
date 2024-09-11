@@ -251,52 +251,6 @@ td {
 /* #prescription-form {
   margin-top: 500px;
 } */
-.popup-form {
-  display: none; /* Hide the popup form initially */
-  position: center;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: #ffffff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 100; /* Ensure the popup is on top */
-}
-
-.popup-form form {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.popup-form h3 {
-  margin-bottom: 15px;
-}
-
-.popup-form label {
-  margin-bottom: 5px;
-  font-weight: bold;
-  align-self: flex-start;
-}
-
-.popup-form input,
-textarea {
-  padding: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  width: 100%;
-  font-family: "Sora", sans-serif;
-}
-
-.popup-form button {
-  background-color: #109edf;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-}
 
 .second {
   margin-top: 0;
@@ -332,46 +286,59 @@ textarea {
 .file-upload {
   display: none; /* Hide the actual file input */
 }
-
 .popup-form {
-  display: none; /* Hide the popup form initially */
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: block; /* Set it to block to make sure it's visible for testing */
+  position: fixed; /* Fix the position to the viewport */
+  top: 25%; /* Center vertically */
+  left: 62%; /* Center horizontally */
+  transform: translate(
+    -50%,
+    -50%
+  ); /* Offset by 50% to account for the width and height */
   background-color: #ffffff;
-  padding: 30px;
+  padding: 40px;
   border-radius: 10px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   z-index: 100; /* Ensure the popup is on top */
-  width: 400px;
+  width: 400px; /* Set a fixed width */
+  max-width: 100%; /* Ensure responsiveness on smaller screens */
+  box-sizing: border-box; /* Prevent padding from increasing the width */
 }
-/* Form Elements */
+
 .popup-form form {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-form h3 {
+  margin-bottom: 15px;
 }
 
 .popup-form label {
   margin-bottom: 5px;
   font-weight: bold;
-  color: #555;
+  align-self: flex-start;
 }
 
-.popup-form input[type="text"],
-.popup-form textarea {
+.popup-form input,
+textarea {
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  font-size: 16px;
-  color: #333;
+  width: 100%;
+  font-family: "Sora", sans-serif;
 }
 
-.popup-form textarea {
-  resize: none;
+.popup-form button {
+  background-color: #109edf;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  cursor: pointer;
 }
-
 /* Upload Button */
 .upload-btn {
   background-color: #007bff;
